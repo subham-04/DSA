@@ -5,7 +5,8 @@ void linkedlistTraversal();
 void createLinkedlist();
 void insertAtBeginning();
 void countNumberofNodes();
-
+void insertAtNode();
+void insertAtEnd();
 
 
 struct Node{
@@ -23,11 +24,13 @@ int main(){
         
         
         while(1){
-            printf("\n\t\t1. Create Linkedlist\n");
+            printf("\n\n\t\t1. Create Linkedlist\n");
             printf("\n\t\t2. Insert Element At The Beginning Of A Linkedlist\n");
-            printf("\n\t\t3. Count The Number Of Nodes In A Linkedlist\n");
-            printf("\n\t\t4. Show Linkedlist\n");
-            printf("\n\t\t5. Exit Program\n");
+            printf("\n\t\t3. Insert Element At The Node\n");
+            printf("\n\t\t4. Insert Element At The End\n");
+            printf("\n\t\t5. Count The Number Of Nodes In A Linkedlist\n");
+            printf("\n\t\t6. Show Linkedlist\n");
+            printf("\n\t\t7. Exit Program\n\n\t--> ");
             scanf("%d",&option);
 
             if (option==1){
@@ -37,18 +40,24 @@ int main(){
                 insertAtBeginning();
             }
             else if(option==3){
-                countNumberofNodes();
+                insertAtNode();
             }
             else if(option==4){
-                linkedlistTraversal();
+                insertAtEnd();
             }
             else if(option==5){
-                printf("\n\t\tExiting Programm");
+                countNumberofNodes();
+            }
+            else if(option==6){
+                linkedlistTraversal();
+            }
+            else if(option==7){
+                printf("\n\\tExiting Programm................\n");
                 break;
             }
         
         }
-    
+        
     return 0;
     }
 
@@ -73,6 +82,45 @@ void insertAtBeginning(){
 
 }
 
+void insertAtNode(){
+    int index;
+    printf("\n\t\t******Inserting at the Node******\t\t\n\nEnter the node : ");
+    scanf("%d",&index);
+    struct Node * ptr,*p;
+    ptr=(struct Node *)malloc(sizeof(struct Node));
+    p=(struct Node *)malloc(sizeof(struct Node));
+    p=head;
+    int count=1;
+    while(count!=index-1){
+        p=p->next;
+        count++;
+    }
+    printf("\nEnter element : ");
+    scanf("%d",&(ptr->data));
+    ptr->next=p->next;
+    p->next=ptr;
+
+}
+
+
+
+void insertAtEnd(){
+
+    printf("\n\t\t******Inserting at the End******\n\n");
+    struct Node *ptr,*p;
+    ptr=(struct Node*)malloc(sizeof(struct Node));
+    p=(struct Node *)malloc(sizeof(struct Node));
+    p=head;
+    while(p->next!=NULL){
+        p=p->next;
+    }
+    printf("\nEnter element : ");
+    scanf("%d",&(ptr->data));
+    
+    ptr->next=p->next;
+    p->next=ptr;
+}
+
 
 void linkedlistTraversal(){
 
@@ -83,7 +131,7 @@ void linkedlistTraversal(){
         printf("\nList is empty\n");
     }
 
-    printf("\nShowing Data........\n");
+    printf("\nShowing Data........\n\n");
     while(ptr != NULL){
         printf("Data at %d: %d\n",i,ptr->data);
         ptr=ptr->next;
