@@ -7,6 +7,10 @@ void insertAtBeginning();
 void countNumberofNodes();
 void insertAtNode();
 void insertAtEnd();
+void deleteFirstNode();
+void deleteAtNode();
+void deleteAtEnd();
+void deleteGivenValue();
 
 
 struct Node{
@@ -22,46 +26,133 @@ int main(){
     int option=0;
     printf("\n\n\t\t**********Creating linkedlist**********\n");
         
-        
+       
         while(1){
             printf("\n\n\t\t1. Create Linkedlist\n");
-            printf("\n\t\t2. Insert Element At The Beginning Of A Linkedlist\n");
-            printf("\n\t\t3. Insert Element At The Node\n");
-            printf("\n\t\t4. Insert Element At The End\n");
-            printf("\n\t\t5. Count The Number Of Nodes In A Linkedlist\n");
-            printf("\n\t\t6. Show Linkedlist\n");
-            printf("\n\t\t7. Exit Program\n\n\t--> ");
+            printf("\n\t\t2. Insertion\n");
+            printf("\n\t\t3. Deletion\n");
+            printf("\n\t\t4. Count The Number Of Nodes In A Linkedlist\n");
+            printf("\n\t\t5. Show Linkedlist\n");
+            printf("\n\t\t6. Exit Program\n\n\t--> ");
             scanf("%d",&option);
 
             if (option==1){
                 createLinkedlist();
             }
             else if(option==2){
-                insertAtBeginning();
+
+                printf("\n\t\t1. Insert Element At The Beginning Of A Linkedlist\n");
+                printf("\n\t\t2. Insert Element At The Node\n");
+                printf("\n\t\t3. Insert Element At The End\n\n\t--> ");
+                scanf("%d",&option);
+                if (option==1){
+                    insertAtBeginning();
+                }
+                else if(option==2){
+                    insertAtNode();
+                }
+                else if(option==2){
+                    insertAtEnd();
+                }
             }
             else if(option==3){
-                insertAtNode();
+                
+                printf("\n\t\t1. Delete The First Element Of A Linkedlist\n");
+                printf("\n\t\t2. Delete A Node\n");
+                printf("\n\t\t3. Delete The Last Element\n");
+                printf("\n\t\t4. Delete A Value(Works for first element only)\n\n\t--> ");
+                scanf("%d",&option);
+                if (option==1){
+                    deleteFirstNode();
+                }
+                else if(option==2){
+                    deleteAtNode();
+                }
+                else if(option==3){
+                    deleteAtEnd();
+                }
+                else if(option==4){
+                    deleteGivenValue();
+                }
             }
             else if(option==4){
-                insertAtEnd();
-            }
-            else if(option==5){
                 countNumberofNodes();
             }
-            else if(option==6){
+            else if(option==5){
                 linkedlistTraversal();
             }
-            else if(option==7){
-                printf("\n\\tExiting Programm................\n");
+            else if(option==6){
+                printf("\n\tExiting Programm................\n");
                 break;
             }
+            
         
         }
         
     return 0;
     }
 
+void deleteFirstNode(){
+
+    printf("\n\t\t******Deleting the First Node******\n\n");
+    struct Node *ptr =head;
+    head=head->next;
+    free(ptr);
+
+}
+
+void deleteAtNode(){
+
+    printf("\n\t\t******Delete at the Node******\n\nEnter the node : ");
+    int index;
+    scanf("%d",&index);
+    struct Node* ptr =head;
+    struct Node * temp=head->next;
+    for(int i=0; i<index-1; i++){
+        ptr=ptr->next;
+        temp=temp->next;
+    }
+    ptr->next=temp->next;
+    free(temp);
+
+}
+
+
+
+void deleteAtEnd(){
+
+    printf("\n\t\t******Deleting the Last Node******\n\n");
+    struct Node * ptr =head;
+    struct Node * temp =head->next;
+
+    while(temp->next!=NULL){
+        temp=temp->next;
+        ptr=ptr->next;
+    }
+    ptr->next=NULL;
+    free(temp);
+
+}
+
+
+void deleteGivenValue(){
+
+    printf("\n\t\t******Delete a Value******\n\nEnter the value : ");
+    int value;
+    scanf("%d",&value);
+    struct Node* ptr =head;
+    struct Node * temp=head->next;
+    while(temp->data!=value && temp!=NULL){        
+        ptr=ptr->next;
+        temp=temp->next;
+    }
+    ptr->next=temp->next;
+    free(temp);
+
+}
+
 void countNumberofNodes(){
+
     struct Node *ptr;
     ptr=head;
     int count=0;
@@ -70,7 +161,10 @@ void countNumberofNodes(){
         count++;
     }
     printf("\nNumber of Nodes available Here : %d",count);
+
 }
+
+
 void insertAtBeginning(){
 
     struct Node * ptr;
@@ -82,7 +176,9 @@ void insertAtBeginning(){
 
 }
 
+
 void insertAtNode(){
+
     int index;
     printf("\n\t\t******Inserting at the Node******\t\t\n\nEnter the node : ");
     scanf("%d",&index);
@@ -139,6 +235,7 @@ void linkedlistTraversal(){
     }
 }
 
+
 void createLinkedlist(){
 
     struct Node *newnode, *temp;
@@ -177,5 +274,4 @@ void createLinkedlist(){
         
     }
     
-
 }
